@@ -141,9 +141,25 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
+          Object.assign(
+            {
+              fallback: require.resolve('style-loader'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders:1,
+                    minimize: true,
+                    modules: true,
+                    localIdentName: '[name]__[local]__[hash:base64:5]'
+                  }
+                }
+              ]
+            }
+          ),
           'style',
           'css?importLoaders=1!postcss',
-          extractTextPluginOptions
+          extractTextPluginOptions,
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },

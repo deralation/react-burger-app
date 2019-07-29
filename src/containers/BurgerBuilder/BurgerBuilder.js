@@ -3,14 +3,14 @@ import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+// Ingredients Prices
 const INGREDIENT_PRICES = {
     meat: 1.3,
     salad: 0.5,
     cheese: 0.1,
     bacon: 0.7
 }
-
-
+// Updating ingredients and prices of burger
 class BurgerBuilder extends Component {
     //constructor(props){
     //    super();
@@ -42,7 +42,7 @@ class BurgerBuilder extends Component {
         this.setState({totalPrice: newPrice, ingredients: updatedIngrediendts});
     }
 
-    updatedINgredients = (type) => {
+    removeIngredientsHandler = (type) => {
 
     }
 

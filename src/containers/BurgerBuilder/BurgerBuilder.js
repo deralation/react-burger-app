@@ -23,7 +23,14 @@ class BurgerBuilder extends Component {
             cheese: 0,
             bacon: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false
+    }
+    updatePurchaseState () {
+        const ingredients = {
+            ...this.state.ingredients
+        };
+        const sum = Object.keys(ingredients);
     }
     // Add ingredient and update the burger
     addIngredientHandler = (type) =>{

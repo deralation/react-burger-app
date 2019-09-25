@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from './../components/UI/Modal/Modal';
 
 // Ingredients Prices
 const INGREDIENT_PRICES = {
@@ -23,7 +24,19 @@ class BurgerBuilder extends Component {
             cheese: 0,
             bacon: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false
+    }
+    updatePurchaseState (ingredients) {
+        const sum = Object.keys(ingredients)
+            .map(igKey => {
+                return ingredients[igKey];
+            })
+            .reduce((sum,el) => {
+                return sum + el;
+            },0);
+        this.setState({purchasable: sum>0});
+        
     }
     // Add ingredient and update the burger
     addIngredientHandler = (type) =>{
@@ -40,6 +53,7 @@ class BurgerBuilder extends Component {
         const newPrice = oldPrice + priceAddition;
 
         this.setState({totalPrice: newPrice, ingredients: updatedIngrediendts});
+        this.updatePurchaseState(updatedIngrediendts);
     }
     // removing ingredients from state
     removeIngredientsHandler = (type) => {
@@ -64,8 +78,8 @@ class BurgerBuilder extends Component {
         const newPrice = oldPrice - priceCalculating;
 
         this.setState({ totalPrice: newPrice, ingredients: updatedIngrediendts});
+        this.updatePurchaseState(updatedIngrediendts);
     }
-
     render(){
         const disabledInfo = {
             ...this.state.ingredients
@@ -81,6 +95,7 @@ class BurgerBuilder extends Component {
                 <BuildControls
                     ingredientsAdded={this.addIngredientHandler} // Ingredients added go to BuildControl then Build Control components to add to ingredients
                     ingredientsRemoved={this.removeIngredientsHandler} // Ingredients removing go to BuildControl then Build Control compoenent to remove to ingredients
+                    purchasable={this.state.purchasable}
                     disabled={disabledInfo}
                     price={this.state.totalPrice}
                 />

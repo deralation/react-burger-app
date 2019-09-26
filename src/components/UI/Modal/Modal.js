@@ -6,5 +6,4 @@ const modal = (props) => (
         {props.children}
     </div>
 );
-
-return default modal;
+export default modal;
